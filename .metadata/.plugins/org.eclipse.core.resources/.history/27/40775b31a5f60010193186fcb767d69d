@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang = "ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>예매하기</title>
+</head>
+<body>
+	<h3>예매하기</h3>
+	<form th:action="@{/movie/reserveConfirm}" method="GET">
+		<input type="text" name="title" placeholder="영화 제목" />
+		<input type="date" name="date" placeholder="관람 날짜" />
+		<input type="time" name="time" placeholder="관람 시간" />
+		<input type="text" name="people" placeholder="인원" />
+		<input type="text" name="name" placeholder="예매자" />
+		<input type="submit" value="예매하기" />
+	</form>
+</body>
+</html>

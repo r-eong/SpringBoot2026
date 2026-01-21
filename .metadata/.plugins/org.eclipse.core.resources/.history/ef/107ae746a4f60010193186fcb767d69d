@@ -1,0 +1,43 @@
+package com.green.controller;
+
+import java.text.SimpleDateFormat;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
+
+@Controller
+public class ReserveController {
+	@GetMapping("/movie/reserve")
+	public String reserveForm() {
+		System.out.println("reserveForm()");
+		return "reserveForm";
+	}
+	
+	@GetMapping("/movie/reserveConfirm")
+	public ModelAndView printReserve(
+			@RequestParam("title") String title,
+			@RequestParam("date") String date,
+			@RequestParam("time") String time,
+			@RequestParam("people") int people,
+			@RequestParam("name") String name
+			) {
+		System.out.println("printReserve()");
+		
+		ModelAndView mNv = new ModelAndView();
+		mNv.setViewName("reservePrint");
+		
+		SimpleDateFormat sd1 = new SimpleDateFormat("yyyy-MM-dd");
+		SimpleDateFormat sd2 = new SimpleDateFormat("HH:mm:ss");
+		
+		mNv.addObject("title", title);
+		mNv.addObject("date", sd1.format(date));
+		mNv.addObject("date", date);
+		mNv.addObject("time", sd2.format(time));
+		mNv.addObject("people", people);
+		mNv.addObject("name", name);
+		
+		return mNv;
+	}
+}

@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html lang = "ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<h3>예매확인</h3>
+	<p>영화 제목 : <span th:text="${title}"></span></p>
+</body>
+</html>

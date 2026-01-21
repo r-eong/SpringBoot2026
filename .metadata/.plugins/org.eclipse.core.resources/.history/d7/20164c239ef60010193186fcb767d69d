@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>주문하기</title>
+</head>
+<body>
+	<h3>주문하기</h3>
+	<form th:action="@{/product/orderResult}" method="GET"><br/>
+		<input type="text" name="productName" placeholder="상품명" />
+		<input type="text" name="price" placeholder="단가" />
+		<input type="text" name="quantity" placeholder="수량" />
+		<input type="text" name="ordererName" placeholder="주문자명" />
+	</form>
+</body>
+</html>

@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang = "ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>예매확인</title>
+</head>
+<body>
+	<h3>예매확인</h3>
+	<p>영화 제목 : <span th:text="${title}"></span></p>
+	<p>관람 날짜 : <span th:text="${title}"></span></p>
+	<p>관람 시간 : <span th:text="${title}"></span></p>
+	<p>인원 : <span th:text="${title}"></span></p>
+	<p>예매자 : <span th:text="${title}"></span></p>
+	<p>예매가 완료되었습니다!</p>
+</body>
+</html>

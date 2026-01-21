@@ -1,0 +1,42 @@
+package com.green.controller;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
+
+import com.green.SamplePjt3Application;
+
+@Controller
+public class BookRentController {
+	
+//	도서 정보 입력
+	@GetMapping("/rental")
+	public String bookRentalForm() {
+		System.out.println("bookRentForm()");
+		
+		return "bookRentForm";
+	}
+	
+//	대여 도서 출력
+	@GetMapping("/rentalProc")
+	public ModelAndView bookRentalProc(
+			@RequestParam("bookName") String bookName,
+			@RequestParam("writer") String writer,
+			@RequestParam("isbn") String isbn,
+			@RequestParam("rentUser") String rentUser
+			) {
+		System.out.println("bookRentalProc()");
+		
+		ModelAndView modelnview = new ModelAndView();
+		
+		modelnview.setViewName("bookRentProc");
+		
+		modelnview.addObject("bookName", bookName);
+		modelnview.addObject("writer", writer);
+		modelnview.addObject("isbn", isbn);
+		modelnview.addObject("rentUser", rentUser);
+		
+		return modelnview;
+	}
+}
