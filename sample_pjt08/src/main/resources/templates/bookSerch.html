@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<h3>도서 검색</h3>
+	<form th:action="@{/book/rentCheck}" method="GET"><br/>
+		<input type="text" name="bookName" placeholder="도서명" /><br/>
+		<input type="text" name="isbn" placeholder="ISBN" /><br/>
+		<input type="submit" value="검색하기" />
+	</form>
+</body>
+</html>

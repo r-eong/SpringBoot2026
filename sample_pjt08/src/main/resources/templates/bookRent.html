@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>도서 대여</title>
+<style type="text/css">
+	body{
+		margin: 20px 0 0 50px;
+	}
+	h3{
+		margin: 0;
+		color: #333;
+		text-align: center;
+	}
+	form{
+		text-align: center;
+	}
+	input{
+		padding: 0 10px;
+		margin: 5px 0;
+		width: 200px;
+		height: 40px;
+		border: 1px solid #999;
+		border-radius: 5px;
+	}
+	a{
+		text-decoration: none;
+		color: #fff;
+		padding: 10px;
+		border-radius: 5px;
+		background-color: #999;
+	}
+	a:hover{
+		background-color: #666;
+	}
+	
+</style>
+</head>
+<body>
+	<h3>도서 대여</h3>
+	<form th:action="@{/book/rentCheck}" method="GET"><br/>
+		<input type="text" name="bookName" placeholder="도서명" /><br/>
+		<input type="text" name="writer" placeholder="저자" /><br/>
+		<input type="text" name="isbn" placeholder="ISBN" /><br/>
+		<input type="text" name="userName" placeholder="대여자명" /><br/>
+		<input type="date" name="rentDate" placeholder="대여일" /><br/>
+		<input type="submit" value="대여하기" />
+	</form>
+	
+	<hr/>
+	<br/>
+	<a href="/book/rentCheck">대여 목록으로 가기</a>
+	<a href="/book/serchBooks">검색 페이지</a>
+	<a href="/book/addBooks">관리자 페이지</a>
+</body>
+</html>
