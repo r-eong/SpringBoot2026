@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.green.book.dao.BookDAO;
 import com.green.book.dto.BookDTO;
 import com.green.book.service.BookService;
 
@@ -56,9 +57,18 @@ public class BookController {
 	
 //	검색 페이지
 	@GetMapping("/book/serchBooks")
-	public String bookSerch(BookDTO bdto) {
+	public String bookSerch(BookDTO bdto, Model model) {
 		System.out.println("\n★ 도서 검색 페이지 이동완료");
+		model.addAttribute("list", booksevice.배열);
 		
 		return "bookSerch";
+	}
+	
+//	대여 목록
+	@GetMapping("/book/serchBooks-list")
+	public String serchBookList(BookDTO bdto) {
+		booksevice.배열.add(bdto);
+		
+		return "redirect:/serchBooks";
 	}
 }

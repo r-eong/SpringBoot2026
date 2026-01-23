@@ -3,13 +3,69 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style type="text/css">
+	body{
+		margin: 20px 0 0 50px;
+		background-color: #f2f3f5;
+		color: #222;
+	}
+	input{
+		padding: 0 10px;
+		margin: 5px 0;
+		width: 200px;
+		height: 40px;
+		border: 1px solid #999;
+		border-radius: 5px;
+	}
+	a{
+		text-decoration: none;
+		color: rgb(16, 69, 207);
+		margin-top: 30px;
+	}
+	a:hover{
+		cursor: pointer;
+		color: rgb(40, 200, 700);
+	}
+	table{
+		border-collapse: collapse;
+	}
+	table thead th{
+		font-weight: normal;
+	}
+</style>
 </head>
 <body>
-	<h3>도서 검색</h3>
+	<h3>대여 도서 검색</h3>
+	
+	<a href="/book/rent">대여하기 페이지로 이동</a>
+		
+	<hr/>
+	
 	<form th:action="@{/book/rentCheck}" method="GET"><br/>
 		<input type="text" name="bookName" placeholder="도서명" /><br/>
 		<input type="text" name="isbn" placeholder="ISBN" /><br/>
 		<input type="submit" value="검색하기" />
 	</form>
+
+	<hr/>
+	
+	<table border="1">
+		<thead>
+			<th>도서명</th>
+			<th>저자</th>
+			<th>ISBN</th>
+			<th>대여자</th>
+		</thead>
+		<tbody>
+			<tr th:each="l : ${list}">
+				<td th:text="${l.name}"></td>
+				<td th:text="${l.city}"></td>
+			</tr>
+			<tr th:if="${#lists.isEmpty(list)}">
+			<!-- ┖> list 가 비어있냐는 뜻!! -->
+				<td colspan="4">대여 도서가 없습니다.</td>
+			</tr>
+		</tbody>
+	</table>
 </body>
 </html>

@@ -11,12 +11,12 @@
 	}
 	a{
 		text-decoration: none;
-		color: skyblue;
+		color: rgb(16, 69, 207);
 		margin-top: 30px;
 	}
 	a:hover{
 		cursor: pointer;
-		color: purple;
+		color: rgb(40, 200, 700);
 	}
 </style>
 </head>
@@ -26,6 +26,8 @@
 	<p>저자 : <span th:text="${writer}"></span></p>
 	<p>ISBN : <span th:text="${isbn}"></span></p>
 	<p>대여자 : <span th:text="${userName}"></span></p>
+	
+	<hr/>
 	
 	<a href="/book/rent">대여하기 페이지로 이동</a>
 </body>

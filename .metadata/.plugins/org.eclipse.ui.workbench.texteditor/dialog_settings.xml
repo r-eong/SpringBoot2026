@@ -3,6 +3,9 @@
 	<section name="java.lang.Class">
 		<item key="replaceBarOpen" value="false"/>
 		<list key="findhistory">
+			<item value="bookCheck"/>
+			<item value="bookList"/>
+			<item value="pass"/>
 			<item value="&lt;input type=&quot;text&quot; name=&quot;id&quot; placeholder=&quot;id&quot; /&gt; &lt;br/&gt;"/>
 		</list>
 	</section>
