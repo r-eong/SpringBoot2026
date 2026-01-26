@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
 	<section name="java.lang.Class">
-		<item key="replaceBarOpen" value="false"/>
+		<item key="replaceBarOpen" value="true"/>
 		<list key="findhistory">
+			<item value="px"/>
 			<item value="bookCheck"/>
 			<item value="bookList"/>
 			<item value="pass"/>
 			<item value="&lt;input type=&quot;text&quot; name=&quot;id&quot; placeholder=&quot;id&quot; /&gt; &lt;br/&gt;"/>
+		</list>
+		<list key="replacehistory">
 		</list>
 	</section>
 </section>

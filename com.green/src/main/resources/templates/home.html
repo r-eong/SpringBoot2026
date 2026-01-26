@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Member Join</title>
+<Link rel="stylesheet" th:href="@{/css/common.css}" />
+<Link rel="stylesheet" th:href="@{/css/header_nav_footer.css}" />
+<Link rel="stylesheet" th:href="@{/css/home.css}" />
+</head>
+<!-- th:replce뜻 : /include/header_nav_footer.html 해당 경로의 파일을 header 로 바꿔 -->
+<body>
+	<header th:replace="~{/include/header_nav_footer.html::header}"></header>
+	
+	<nav th:replace="~{/include/header_nav_footer.html::nav}"></nav>
+	
+	<section>
+		<div id="section_wrap">
+			<div class="word">HOME</div>
+			<div class="content">
+				<img th:src="@{/img/Main.jpg}" alt="자동차">
+			</div>
+		</div>
+	</section>
+	
+	<footer th:replace="~{/include/header_nav_footer.html::footer}"></footer>
+</body>
+</html>

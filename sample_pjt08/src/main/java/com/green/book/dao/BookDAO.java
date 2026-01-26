@@ -20,6 +20,8 @@ public class BookDAO {
 		bookList();
 	}
 	
+	ArrayList<String> newList = new ArrayList<>();
+	
 //	콘솔 출력 메소드
 	public void printInfo() {
 		for(String key : bookDb.keySet()) {
@@ -31,6 +33,12 @@ public class BookDAO {
 			System.out.println("대여일 : " + bdto.getRentDate());
 			System.out.println("반납일 : " + bdto.getRentDate());
 			System.out.println("-------------------------------");
+		}
+	}
+	
+	public void listlist() {
+		for(int i = 0; i < bookDb.size(); i++) {
+			newList.add(i, bookDb.get(i));
 		}
 	}
 	
