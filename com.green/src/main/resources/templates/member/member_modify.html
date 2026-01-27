@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<Link rel="stylesheet" th:href="@{/css/common.css}" />
+<Link rel="stylesheet" th:href="@{/css/header_nav_footer.css}" />
+<Link rel="stylesheet" th:href="@{/css/home.css}" />
+<Link rel="stylesheet" th:href="@{/css/member.css}" />
+<script th:src="@{/js/member.js}"></script>
+</head>
+<body>
+	<header th:replace="~{/include/header_nav_footer.html::header}"></header>
+	
+	<nav th:replace="~{/include/header_nav_footer.html::nav}"></nav>
+	
+	<section>
+		<div id="section_wrap">
+			<div class="word">
+				<h2>개인정보 수정</h2>
+			</div>
+			<div class="content">
+				<form th:action="@{/member/modify}" method="POST">
+					<table border="1">
+						<tbody>
+							<tr>
+								<th>아이디</th>
+								<td>
+									<input type="text" name="id" th:value="${member.id}" readonly="readonly" />
+								</td>
+							</tr>
+							<tr>
+								<th>이메일</th>
+								<td>
+									<input type="email" name="mail" th:value="${member.mail}" />
+								</td>
+							</tr>
+							<tr>
+								<th>휴대폰번호</th>
+								<td>
+									<input type="tel" name="phone" th:value="${member.phone}" />
+								</td>
+							</tr>
+							<tr>
+								<th>비밀번호</th>
+								<td>
+									<input type="password" name="pw" 
+									required="required" placeholder="본인확인을 위해 비밀번호를 입력하세요.">
+									<!-- required : 필수 입력 -->
+								</td>
+							</tr>
+						</tbody>
+					</table>
+					
+					<!-- 버튼 - 회원수정, 회원삭제, 목록, 회원가입 -->
+					<!-- a태그인 이유 : href로 url 이동해야해서! -->
+					<div class="btn-area">
+					<button type="submit" class="btn">수정완료</button>
+						<a th:href="@{/member/list}" class="btn">목록</a>
+					</div>
+				</form>
+			</div>
+		</div>
+	</section>
+	
+	<footer th:replace="~{/include/header_nav_footer.html::footer}"></footer>
+	
+	<script th:if="${msg}">
+		alert('[[${msg}]]');
+	</script>
+</body>
+</html>
