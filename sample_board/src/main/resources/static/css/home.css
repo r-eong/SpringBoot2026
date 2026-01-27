@@ -1,0 +1,12 @@
+@charset "UTF-8";
+
+section {
+	width: 100%;
+	padding: 30px 0;
+}
+
+.section_wrap {
+	width: 1000px;
+	min-height: 600px;
+	margin: 0 auto;
+}

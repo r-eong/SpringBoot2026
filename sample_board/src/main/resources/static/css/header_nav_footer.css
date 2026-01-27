@@ -1,0 +1,41 @@
+@charset "UTF-8";
+
+header {
+width: 100%;
+padding: 20px 0 30px 0;
+background-color: #ee793e;
+color: #fff;
+}
+
+.header_wrap {
+width: 1000px; height: 40px;
+line-height: 40px;
+margin: 0 auto;
+text-align: center;
+}
+
+.header_wrap a{
+	text-decoration: none;
+	color: #fff;
+	font-weight: bold;
+}
+.header_wrap a:hover{
+	color: #222;
+}
+
+footer {
+width: 100%;
+border-top: 1px solid #ccc;
+padding: 10px 0;
+background-color: #ee793e;
+}
+
+footer .footer_wrap {
+width: 1000px;
+height: 100px;
+line-height: 100px;
+color: #fafafa;
+margin: 0 auto;
+text-align: center;
+
+}
