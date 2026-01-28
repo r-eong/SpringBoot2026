@@ -1,41 +1,42 @@
 @charset "UTF-8";
 
 header {
-width: 100%;
-padding: 20px 0 30px 0;
-background-color: #ee793e;
-color: #fff;
+    width: 100%;
+    padding: 25px 0;
+    background-color: #ffffff; /* 헤더는 화이트로 깔끔하게 */
+    border-bottom: 1px solid #eee;
 }
 
 .header_wrap {
-width: 1000px; height: 40px;
-line-height: 40px;
-margin: 0 auto;
-text-align: center;
+    width: 1000px;
+    height: 40px;
+    line-height: 40px;
+    margin: 0 auto;
+    text-align: center;
 }
 
-.header_wrap a{
-	text-decoration: none;
-	color: #fff;
-	font-weight: bold;
+.header_wrap a {
+    text-decoration: none;
+    color: #444; /* 글자는 어둡게 */
+    font-weight: 600;
+    margin: 0 25px;
+    font-size: 17px;
 }
-.header_wrap a:hover{
-	color: #222;
+
+.header_wrap a:hover {
+    color: #ff7f50; /* 호버 시 주황색으로 변경 */
 }
 
 footer {
-width: 100%;
-border-top: 1px solid #ccc;
-padding: 10px 0;
-background-color: #ee793e;
+    width: 100%;
+    padding: 50px 0;
+    background-color: #ff7f50; /* 푸터는 전체 주황색 */
+    color: #fff;
 }
 
 footer .footer_wrap {
-width: 1000px;
-height: 100px;
-line-height: 100px;
-color: #fafafa;
-margin: 0 auto;
-text-align: center;
-
+    width: 1000px;
+    margin: 0 auto;
+    text-align: center;
+    line-height: 1.6;
 }

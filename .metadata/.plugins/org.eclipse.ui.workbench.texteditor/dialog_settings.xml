@@ -3,6 +3,9 @@
 	<section name="java.lang.Class">
 		<item key="replaceBarOpen" value="true"/>
 		<list key="findhistory">
+			<item value="signup_form"/>
+			<item value="insertMember"/>
+			<item value="executeQuery"/>
 			<item value="px"/>
 			<item value="bookCheck"/>
 			<item value="bookList"/>

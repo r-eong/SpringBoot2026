@@ -48,7 +48,7 @@ public class MemberService {
 	public List<MemberDTO> printAlluser() {
 		System.out.println("MemberService - printAlluser 메소드 실행");
 		
-		return memberdao.insertMember();
+		return memberdao.allSelectMember();
 	}
 	
 //	-------------------------------- 2026년 1월 27일 서비스로직 작성부분 --------------------------------

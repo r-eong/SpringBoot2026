@@ -1,13 +1,63 @@
 @charset "UTF-8";
 
-section .section_wrap table{
-	width: 100%;
-	border-collapse: collapse;
-	background-color: #222;
-	color: #fff;
+/* 전체 폰트 및 부드러운 스크롤 */
+* {
+    box-sizing: border-box;
+    font-family: 'Pretendard', -apple-system, sans-serif;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #fff; /* 기존 보라색 제거 */
+    color: #333;
+    margin: 20px 0;
+    /* border-top: 2px solid #ff7f50; 주황색 포인트 라인 */
+}
+
+table td {
+    background-color: #fff; /* 밝은 톤 유지 */
+    color: #444;
+    padding: 15px;
+    /* border-bottom: 1px solid #f0f0f0; */
+    text-align: center;
 }
 
 input {
-	outline: none;
-	font-size: 15px;
+    outline: none;
+    font-size: 15px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+input:focus {
+    border-color: #ff7f50; /* 포커스 시 주황색 */
+}
+
+.btn {
+    padding: 12px 50px;
+    margin-top: 30px;
+    cursor: pointer;
+    background-color: #ff7f50; /* 버튼 주황색 강조 */
+    color: #fff;
+    border: none;
+    border-radius: 30px; /* 둥근 버튼으로 더 예쁘게 */
+    font-weight: bold;
+    transition: 0.3s ease;
+}
+
+.btn:hover {
+    background-color: #e66a3e; /* 호버 시 약간 진하게 */
+    box-shadow: 0 4px 10px rgba(255, 127, 80, 0.3);
+}
+
+a {
+    cursor: pointer;
+    text-decoration: none;
+    color: #444;
+}
+
+a:hover{
+	color: #e66a3e;
 }

@@ -1,7 +1,3 @@
-create database board_table;
-
-use boardboard_table_table;
-
 create table board_table(
 	id int auto_increment unique primary key,  -- 게시글 번호
     title varchar(30) not null,  -- 제목

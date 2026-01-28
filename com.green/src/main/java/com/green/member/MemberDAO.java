@@ -94,8 +94,8 @@ public class MemberDAO {
 //		return "select * from user_mamber";
 //	}
 
-	public List<MemberDTO> insertMember() {
-		System.out.println("MemberDAO - insertMember 메소드 실행");
+	public List<MemberDTO> allSelectMember() {
+		System.out.println("MemberDAO - allSelectMember 메소드 실행");
 		
 //		전체 목록 검색
 		String sql = "SELECT * FROM user_mamber";

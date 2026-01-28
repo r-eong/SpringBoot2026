@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Board Home</title>
+<link rel="stylesheet" th:href="@{/css/home.css}">
+<link rel="stylesheet" th:href="@{/css/header_nav_footer.css}">
+<link rel="stylesheet" th:href="@{/css/common.css}">
+<!-- <script th:src="@{/js/board.js}"></script> -->
+</head>
+<body>
+	<header th:replace="~{/include/header_nav_footer.html::header}"></header>
+	<nav th:replace="~{/include/header_nav_footer.html::nav}"></nav>
+	
+	<section>
+		<div class="section_wrap">
+			<h3>게시판</h3>
+			<table border="1">
+				<tbody>
+					<tr>
+						<th>no</th>
+						<th>제목</th>
+						<th>내용</th>
+						<th>작성자</th>
+						<th>작성일</th>
+					</tr>
+					<tr th:each="list: ${allList}">
+						<td th:text="${list.id}"></td>
+						<td>
+							<a th:href="@{/board/board_detail(id=${list.id})}" th:text="${list.title}"></a>
+						</td>
+						<td th:text="${list.content}"></td>
+						<td th:text="${list.writer}"></td>
+						<td th:text="${list.createdAt}"></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</section>
+	
+	<footer th:replace="~{/include/header_nav_footer.html::footer}"></footer>
+</body>
+</html>
