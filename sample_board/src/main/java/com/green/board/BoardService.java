@@ -63,4 +63,13 @@ public class BoardService {
 		
 		return boarddao.delBoard(id) == 1;
 	}
+	
+//	게시물 검색 메소드
+	public List<BoardDTO> SearchBoard(String shearchKeyWord, String searchType) {
+		System.out.println("BoardService - SearchBoard 메소드 - 게시물 검색 실행");
+		System.out.println("SearchBoard - shearchKeyWord : " + shearchKeyWord);
+		System.out.println("SearchBoard - searchType : " + searchType);
+		
+		return boarddao.getSearch(shearchKeyWord, searchType);
+	}
 }

@@ -3,6 +3,7 @@ package com.green.member;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 //controller(최초의 질문) -> service(질문):다리역할 -> DAO(질문) -> DB(데이터값 찾음)
@@ -21,6 +22,10 @@ public class MemberService {
 //	MemberDAO DI 의존객체 정의
 	@Autowired
 	MemberDAO memberdao;
+	
+//	PasswordEncoder 객체 DI 정의
+	@Autowired
+	PasswordEncoder passwordEncoder;
 
 	public int signupConfirm(MemberDTO mdto) {
 		System.out.println("MemberService - signupConfirm 메소드 실행");
@@ -32,7 +37,18 @@ public class MemberService {
 //		id 없음 = false
 		if(isMember == false) {
 //			중복된 id 존재하지 않을때 사용자의 정보가 DB에 추가되어야함
+//			DB에 회원정보가 추가될 때 암호화가 이루어져야한다.
+			
+//			문자인 pw 를 암호화됨 비밀번호로 변환하는 코드
+			String encodePw = passwordEncoder.encode(mdto.getPw());
+//			encode : 암호화. 인간언어 -> 기계어
+//			decode : 복호화. 기계어 -> 인간언어
+			
+//			암호화된 encodePw 를 mdto.getPw() 로 암호화해서 수정해줘야함
+			mdto.setPw(encodePw);  // 암호화된 값이 들어감
+			
 			int result = memberdao.insertMember(mdto);
+			
 			if(result > 0) {  // 가입 성공
 				return user_id_success;  // result = 1
 			}else {  // 가입 실패
@@ -94,5 +110,28 @@ public class MemberService {
 //		memberdao.delMember(id) -> 1 == true
 //		memberdao.delMember(id) -> 0 == false
 		return memberdao.delMember(id) == 1;
+	}
+	
+//	-------------------------------- 2026년 1월 29일 추가쿼리 작성부분 --------------------------------
+	
+//	암호화된 DB를 복호화하여 로그인하는 메소드
+	public MemberDTO loginConfirm(MemberDTO mdto) {
+		System.out.println("MemberService - loginConfirm 메소드 실행");
+		
+//		1. DB에서 해당 정보의 id 가져오기
+		MemberDTO dbMember = memberdao.oneSelectMember(mdto.getId());
+		
+//		2. DB에서 꺼내온 id의 비밀번호와 input에 입력한 값이 일치하는지 확인
+		if(dbMember!= null && dbMember.getPw() != null) {
+			if(passwordEncoder.matches(mdto.getPw(), dbMember.getPw())) {
+//			┖> 암호화된 데이버를 passEncoder.matches(사용자 입력값, DB에 저장되어있는 암호화되어있는 값)
+//			matches : 복호화해서 비교해주는 애
+				System.out.println("로그인 성공");
+				return dbMember;
+			}
+		}
+		
+		System.out.println("로그인 실패");
+		return null;  // 로그인 실패
 	}
 }

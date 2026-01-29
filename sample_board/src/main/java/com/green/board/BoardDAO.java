@@ -133,7 +133,7 @@ public class BoardDAO {
 		System.out.println("BoardDAO - delBoard 메소드 - 게시물 삭제 실행");
 		
 		int result = 0;
-String sql = "UPDATE board_table SET title=?, content=? WHERE id=?";
+		String sql = "DELETE FROM board_table WHERE id=?";
 		
 		try(Connection conn = dataSource.getConnection();
 			PreparedStatement pstmt = conn.prepareStatement(sql);
@@ -146,5 +146,45 @@ String sql = "UPDATE board_table SET title=?, content=? WHERE id=?";
 		}
 		
 		return result;
+	}
+	
+//	내용, 제목 으로 검색하는 메소드
+	public List<BoardDTO> getSearch(String shearchKeyWord, String searchType){
+		System.out.println("BoardDAO - getSearch 메소드 - 게시물 검색 실행");
+		
+		List<BoardDTO> boardList = new ArrayList<BoardDTO>();
+		
+		String sql = "";
+		
+		if("title".equals(searchType)) {  // 제목으로 검색 sql
+			sql = "SELECT * FROM board_table WHERE title LIKE ? ORDER BY id DESC";
+		}else {  // 내용으로 검색  sql
+			sql = "SELECT * FROM board_table WHERE content LIKE ? ORDER BY id DESC";
+		}
+		
+		try(Connection conn = dataSource.getConnection();
+			PreparedStatement pstmt = conn.prepareStatement(sql);){
+//			물음표 대응
+			pstmt.setString(1, "%" + shearchKeyWord + "%");
+			
+			ResultSet rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				BoardDTO bdto = new BoardDTO();
+				
+				bdto.setId(rs.getInt("id"));
+				bdto.setTitle(rs.getString("title"));
+				bdto.setContent(rs.getString("content"));
+				bdto.setWriter(rs.getString("writer"));
+				bdto.setCreatedAt(rs.getString("createdAt"));
+				
+				boardList.add(bdto);
+			}
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return boardList;
 	}
 }

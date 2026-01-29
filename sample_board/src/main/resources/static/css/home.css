@@ -6,13 +6,3 @@ section {
     background-color: #fffaf8; /* 아주 연한 주황빛 배경 */
 }
 
-.section_wrap {
-    width: 1000px;
-    min-height: 600px;
-    margin: 0 auto;
-    padding: 40px;
-    background-color: #ffffff;
-    border-radius: 15px;
-    box-shadow: 0 5px 20px rgba(0,0,0,0.05);
-    text-align: center;
-}

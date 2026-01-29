@@ -14,6 +14,9 @@ header {
     margin: 0 auto;
     text-align: center;
 }
+header_wrap .h3{
+	font-size: 20px;
+}
 
 .header_wrap a {
     text-decoration: none;

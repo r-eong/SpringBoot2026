@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import jakarta.servlet.http.HttpSession;
+
 @Controller
 public class MemberController {
 //	MemberService 클래스 DI로 의존 객체화
@@ -34,13 +36,14 @@ public class MemberController {
 //		회원가입이 제대로 되었는지, 실패했는지 예외처리
 		int result = memberservice.signupConfirm(mdto);
 		
+		model.addAttribute("result", result);
+		
 //		회원가입이 성공했을 경우 회원목록으로 redirect(새로운 주소로 이동)
 		if(result == memberservice.user_id_success) {
-			return "redirect:/member/list";
+			return nextPage;
 			
 //		회원가입 실패한 경우
 		}else {
-			model.addAttribute("result", result);
 			return nextPage;
 		}
 	}
@@ -132,5 +135,57 @@ public class MemberController {
 			ra.addFlashAttribute("msg", "삭제 실패");
 			return "redirect:/member/memberInfo?=id" + id;
 		}
+	}
+	
+//	-------------------------------- 2026년 1월 29일 추가쿼리 작성부분 --------------------------------
+	
+//	로그인 핸들러
+	@GetMapping("/member/login")
+	public String loginForm() {
+		System.out.println("memberController - loginForm 메소드 실행");
+		
+		return "/member/login_Form";
+	}
+	
+//	로그인을 처리하기 위한 컨트롤러
+	@PostMapping("/member/loginPro")
+	public String loginPro(MemberDTO mdto, HttpSession session) {
+//		Model 은 1회용 요청 객체 : 화면 이동하면 사라짐 - 로그인 유지 안됨
+//		HttpSession (Session(세션)) : 스프링부트의 내장 객체. 꺼내서 사용하기 편리함. 로그인 유지 가능
+//		┖> 서버가 사용자 1명을 기억하기 위해 사용하는 저장공간
+		
+//		HttpSession 기본 3가지 명령어
+//		1. 세션에 값 저장하기
+//		   session.serAttribute("이름", 값) - 로그인 성공 시 사용
+//		2. 세션에 저장된 값 가져오기
+//		   session.dwtAttribute("이름") - 로그인 여부 확인
+//		3. 세션 전체 삭제
+//		   session.invalidate() - 로그아웃 시 사용
+		
+		System.out.println("memberController - loginPro 메소드 실행");
+		
+		MemberDTO loginMember = memberservice.loginConfirm(mdto);
+		
+		if(loginMember != null) {  // 로그인 성공
+			session.setAttribute("loginMember", loginMember);
+			
+			return "redirect:/";
+			
+		}else {  // 로그인 실패
+			
+			return "redirect:/member/login";
+		}
+	}
+	
+//	세션 로그아웃
+	@GetMapping("/member/logout")
+	public String logout(HttpSession session) {
+		System.out.println("memberController - logout 메소드 실행");
+		
+//		1. session 에 담겨있으므로 session.invalidate 로 세션 객체 완전 삭제
+		session.invalidate();
+		
+//		2. 로그아웃시 홈으로 이동
+		return "redirect:/";
 	}
 }

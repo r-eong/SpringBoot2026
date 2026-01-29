@@ -265,4 +265,34 @@ public class MemberDAO {
 		return result;
 	}
 	
+//	-------------------------------- 2026년 1월 29일 추가쿼리 작성부분 --------------------------------
+	
+////	로그인 메소드  <- 없어도 됨!!
+//	public MemberDTO setloginForm(String id, String pw) {
+//		System.out.println("MemberDAO - singInForm 메소드 실행");
+//		
+//		MemberDTO mdto = new MemberDTO();
+//		
+////		sql문
+//		String sql = "SELECT * FROM user_mamber WHERE id=?, pw=?";
+//		
+//		try(Connection conn = dataSource.getConnection();
+//			PreparedStatement pstmt = conn.prepareStatement(sql);){
+////			물음표 대응
+//			pstmt.setString(1, id);
+//			pstmt.setString(1, pw);
+//			
+//			ResultSet rs = pstmt.executeQuery();
+//			
+//			if(rs.next()) {
+//				pstmt.setString(3, mdto.getId());
+//				pstmt.setString(3, mdto.getPw());
+//			}
+//			
+//		}catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//		
+//		return mdto;
+//	}
 }

@@ -47,7 +47,7 @@
 								
 								<!-- 삭제할 게시글의 번호, 비밀번호를 알아여 삭제가능 -->
 								<!-- input 태그의 type="hidden" 이면 숨겨진 상태로 value 값을 넘길 수 있다 -->
-								<form th:action="@{/board/deletePro}" method="GET">
+								<form th:action="@{/board/deletePro}" method="GET" style="display: inline;">
 									<input type="hidden" name="num" th:value="${oneBoard.num}" />
 									<input type="hidden" name="writerPw" th:value="${oneBoard.writerPw}" />
 									<input type="submit" value="삭제하기" 

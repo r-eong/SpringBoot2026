@@ -170,4 +170,78 @@ public class BoardDAO {
 		
 		return result;
 	}
+	
+//	---------------------------------- 2026-01-29 ----------------------------------
+	
+//	게시글 작성시 비밀번호 입력 - 삭제시 비밀번호 일치하는지 체크
+	public int deleteBoard(int num, String writerPw) {
+		System.out.println("2. BoardDAO - deleteBoard 실행");
+		
+		int result = 0;
+		
+		String sql = "DELETE FROM board WHERE num=? AND writerPw=?";
+		
+		try(Connection conn = datasource.getConnection();
+			PreparedStatement pstmt = conn.prepareStatement(sql);){
+//			물음표 대응
+			pstmt.setInt(1, num);
+			pstmt.setString(2, writerPw);
+			
+			result = pstmt.executeUpdate();
+			
+		}catch (Exception e) {
+			 e.printStackTrace();
+		}
+		
+		return result;
+	}
+	
+//	내용 또는 제목으로 검색하는 메소드 
+//	검색 메소드 반드시 searchType, shearchKeyword 매개변수 필요
+	public List<BoardDTO> getShearchBoard(String searchKeyWord, String searchType) {
+		System.out.println("2. BoardDAO - shearchBoard 실행");
+		
+		List<BoardDTO> bList = new ArrayList<BoardDTO>(); 
+		
+		String sql = "";
+		
+//		제목 검색
+		if("subject".equals(searchType)) {
+//			입력한 문자를 포함하는 검색 명령어
+//			select 필드명 from 테이블명 where 검색 필드명 like %키워드%
+			sql = "SELECT * FROM board WHERE subject LIKE ? ORDER BY num DESC";
+			
+//		내용 검색
+		}else {
+			sql = "SELECT * FROM board WHERE content LIKE ? ORDER BY num DESC";
+		}
+		
+		try(Connection conn = datasource.getConnection();
+			PreparedStatement pstmt = conn.prepareStatement(sql);){
+//			물음표 대응
+			pstmt.setString(1, "%" + searchKeyWord + "%");
+//			┖> select - 제목 
+			ResultSet rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				BoardDTO bdto = new BoardDTO();
+				
+				bdto.setNum(rs.getInt("num"));
+				bdto.setWriter(rs.getString("writer"));
+				bdto.setSubject(rs.getString("subject"));
+				bdto.setWriterPw(rs.getString("writerPw"));
+				bdto.setReg_date(rs.getString("reg_date"));
+				bdto.setReadcount(rs.getInt("readcount"));
+				bdto.setContent(rs.getString("content"));
+				
+//				List에 추가
+				bList.add(bdto);
+			}
+			
+		}catch (Exception e) {
+			 e.printStackTrace();
+		}
+		
+		return bList;
+	}
 }

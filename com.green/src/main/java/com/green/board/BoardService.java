@@ -45,4 +45,31 @@ public class BoardService {
 			return false;
 		}
 	}
+	
+//	---------------------------------- 2026-01-29 ----------------------------------
+	
+//	게시글 하나를 삭제하는 메소드
+	public boolean removeBoard(int num, String writerPw) {
+		System.out.println("3. BoardService - removeBoard 실행");
+		
+//		DAO에서 받아오는 deleteBoard 는 삭제도면 1, 아니면 0
+		int result = boarddao.deleteBoard(num, writerPw);
+		
+		if(result > 0) {
+			System.out.println("삭제 성공");
+			return true;
+		}else {
+			System.out.println("삭제 실패 - 비밀번호 불일치");
+			return false;
+		}
+	}
+	
+//	게시물 검색하는 메소드
+	public List<BoardDTO> shearchBoard(String searchKeyWord, String searchType) {
+		System.out.println("3. BoardService - shearchBoard 실행");
+		System.out.println("3. shearchBoard - searchType : " + searchType);
+		System.out.println("3. shearchBoard - searchKeyWord : " + searchKeyWord);
+		
+		return boarddao.getShearchBoard(searchKeyWord, searchType);
+	}
 }

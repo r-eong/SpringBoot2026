@@ -14,10 +14,24 @@
 			<h3>Member Join</h3>
 		</div>
 		<div id="header_wrap">
-			<a th:href="@{/}">HOME</a>
-			<a th:href="@{/member/signup}">회원가입</a>
-			<a th:href="@{/member/signin}">로그인</a>
-			<a th:href="@{/board/write}">게시판</a>
+			<a th:href="@{/}">HOME &nbsp;</a>
+			<a th:href="@{/board/list}">게시판 &nbsp;</a>
+			<!-- 비로그인 상태 일때 메뉴 -->
+			<th:block th:if="${session.loginMember == null}">
+				<a th:href="@{/member/signup}">회원가입</a> &nbsp;
+				<a th:href="@{/member/login}">로그인</a> &nbsp;
+			</th:block>
+			<!-- 로그인 상태 -->
+			<th:block th:if="${session.loginMember != null}">
+				<span style="color: red;" th:if="${session.loginMember.id == 'admin9876'}">관리자 &nbsp;</span>
+				<a th:href="@{/member/list}" th:if="${session.loginMember.id == 'admin9876'}"
+				style="color: green;">회원목록 &nbsp;</a>
+				<span th:unless="${session.loginMember.id == 'admin9876'}">
+					<span th:text="${session.loginMember.id}+님"></span> &nbsp;
+				</span>
+				<a th:href="@{/member/memberInfo(id=${session.loginMember.id})}">마이페이지 &nbsp;</a>
+				<a th:href="@{/member/logout}">로그아웃 &nbsp;</a>
+			</th:block>
 		</div>
 	</header>
 	
