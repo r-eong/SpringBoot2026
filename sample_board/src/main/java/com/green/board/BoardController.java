@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import jakarta.servlet.http.HttpSession;
+
 @Controller
 public class BoardController {
 	@Autowired
@@ -25,25 +27,32 @@ public class BoardController {
 		return nextPage;
 	}
 	
-//	게시판 작석 확인
-	@PostMapping("/board/form_confirm")
-	public String formConfirm(BoardDTO bdto, Model model) {
+//	게시판 작성 확인
+//	@PostMapping("/board/form_confirm")
+//	public String formConfirm(BoardDTO bdto, Model model) {
+//		System.out.println("BoardController - formConfirm 메소드 실행");
+//		
+//		String nextPage = "board/boardAll";
+//		
+////		예외처리 호출
+//		int result = boardservice.boardAddForm(bdto);
+//		
+////		게시 성공
+//		if(result == boardservice.form_title_success) {
+//			return "redirect:/board/alllist";
+//		
+////		게시 실패
+//		}else {
+//			model.addAttribute("result", result);
+//			return nextPage;
+//		}
+//	}
+	@PostMapping("/board/formPro")
+	public String formConfirm(BoardDTO bdto, HttpSession session) {
 		System.out.println("BoardController - formConfirm 메소드 실행");
 		
-		String nextPage = "board/boardAll";
-		
-//		예외처리 호출
-		int result = boardservice.boardAddForm(bdto);
-		
-//		게시 성공
-		if(result == boardservice.form_title_success) {
-			return "redirect:/board/alllist";
-		
-//		게시 실패
-		}else {
-			model.addAttribute("result", result);
-			return nextPage;
-		}
+		boardservice.boardAddForm(bdto);
+		return "recirect:/boader/alllist";
 	}
 	
 ////	게시판 전체출력

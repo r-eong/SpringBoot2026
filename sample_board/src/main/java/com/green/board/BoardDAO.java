@@ -16,6 +16,7 @@ public class BoardDAO {
 	@Autowired
 	private DataSource dataSource;
 	
+//	게시물 추가 쿼리
 	public int insertBoard(BoardDTO bdto) {
 		System.out.println("BoardDAO - insertBoard 메소드 실행");
 		
@@ -40,6 +41,7 @@ public class BoardDAO {
 		return result;
 	}
 	
+//	전체 게시글 출력
 	public List<BoardDTO> allSelectBoard() {
 		System.out.println("BoardDAO - insertBoard 메소드 실행");
 		
@@ -71,11 +73,13 @@ public class BoardDAO {
 		return list;
 	}
 
-	public boolean isTitle(String title) {
-		System.out.println("BoardDAO - isTitle 메소드 실행");
-		return false;
-	}
+//	public boolean isTitle(String title) {
+//		System.out.println("BoardDAO - isTitle 메소드 실행");
+//		
+//		return false;
+//	}
 	
+//	게시물 상세 페이지
 	public BoardDTO oneBoard(int id) {
 		System.out.println("BoardDAO - oneBoard 메소드 - 게시물 상세 페이지 실행");
 		

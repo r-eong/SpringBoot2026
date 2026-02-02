@@ -1,0 +1,12 @@
+-- DB(스키마이름) springBootDB
+
+-- 테이블 이름 : user_member
+create table member_table(
+	no int auto_increment primary key,
+    id varchar(20) not null unique, 
+    pw varchar(100) not null,
+    mail varchar(50) not null,
+    phone varchar(50) not null,
+    reg_date datetime default now(),  -- user 의 등록일
+    mod_date datetime default now()
+);
