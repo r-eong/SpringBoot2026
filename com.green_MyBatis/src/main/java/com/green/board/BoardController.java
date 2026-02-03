@@ -70,11 +70,48 @@ public class BoardController {
 //		String nextPage = "board/boardList";
 //		return nextPage;
 //	}
-	@GetMapping("/board/list")  // 검색기능 추가 코드
+//	@GetMapping("/board/list")  // 검색기능 추가 코드
+//	public String boardList(Model model,
+//			@RequestParam(required = false, value="searchKeyWord") String searchKeyWord, 
+//			@RequestParam(required = false, value="searchType") String searchType) {
+//		System.out.println("1. BoardController - boardList 메소드 실행");
+//		
+//		List<BoardDTO> boardList;
+//		
+////		검색 - 검색내용 list에 출력
+////		JAVA는 널포인트인셉션? 이라는걸 갖고있어서 null 처리를 꼭 해줘야함
+//		if(searchType != null && !searchType.trim().isEmpty()) {
+////								  ┖isEmpty() = 공백이냐?
+////			boardservice에서 shearchBoard 호출
+//			boardList = boardservice.shearchBoard(searchKeyWord, searchType);
+//			
+////		검색 초기화 - list 전체출력
+//		}else {
+//			boardList = boardservice.allBoard();
+//		}
+//		
+////		검색 초기화 - list 전체출력
+//		model.addAttribute("list", boardList);
+//		
+//		String nextPage = "board/boardList";
+//		return nextPage;
+//	}
+	@GetMapping("/board/list")  // 검색기능 추가 + 페이지 번호 추가 코드 --- 2026-02-03 추가 ---
 	public String boardList(Model model,
 			@RequestParam(required = false, value="searchKeyWord") String searchKeyWord, 
-			@RequestParam(required = false, value="searchType") String searchType) {
+			@RequestParam(required = false, value="searchType") String searchType,
+//			1. 페이지 번호 - 1부터 시작이므로 초기값 1로 정의
+			@RequestParam(value="page", defaultValue = "1") int page,
+//			2. 페이지 사이즈 - 한 화면에 보여지는 게시글 개수를 5로 초기화
+			@RequestParam(value = "pageSize", defaultValue = "5") int pageSize
+			) {
 		System.out.println("1. BoardController - boardList 메소드 실행");
+		
+//		3. totalCnt 메소드 호출
+		int totalCnt = boardservice.getAllCount();
+		
+//		4. PageHandler 클래스 접근하기 위해 인스턴스화
+		PageHandler ph = new PageHandler(totalCnt, page, pageSize);
 		
 		List<BoardDTO> boardList;
 		
@@ -87,11 +124,17 @@ public class BoardController {
 			
 //		검색 초기화 - list 전체출력
 		}else {
-			boardList = boardservice.allBoard();
+//			boardList = boardservice.allBoard();
+//			┖> 을 사용하지 못 하는 이유 : 페이징이 안 된 전체 페이지 출력 메소드라서
+//			public List<BoardDTO> getPageList(int startRow, int pageSize)
+			boardList = boardservice.getPageList(ph.getStartRow(), pageSize);
 		}
 		
 //		검색 초기화 - list 전체출력
 		model.addAttribute("list", boardList);
+		
+//		pageHandler 클래스 전체 model 객체에 담아서 html 로 보내야 UI 화면에 그릴 수 있다.
+		model.addAttribute("ph", ph);
 		
 		String nextPage = "board/boardList";
 		return nextPage;

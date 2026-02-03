@@ -1,23 +1,32 @@
 @charset "UTF-8";
 
-/* 전체 기본 설정 */
+/* [1] 기본 초기화 및 공통 설정 */
 * {
     box-sizing: border-box;
     font-family: 'Pretendard', -apple-system, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+a{
+	text-decoration: none;
+	font-weight: 600;
+	color: #222;
+}
+a:hover{
+	color: #ff7f50;
 }
 
 .section_wrap {
     width: 1000px;
     min-height: 600px;
-    margin: 0 auto;
+    margin: 50px auto;
     padding: 40px;
     background-color: #ffffff;
     border-radius: 15px;
     box-shadow: 0 5px 20px rgba(0,0,0,0.05);
-    text-align: center;
 }
 
-/* 1. 타이틀: 강조 및 하단 포인트 선 */
 h3 {
     font-size: 30px;
     color: #222;
@@ -29,48 +38,16 @@ h3 {
     padding-bottom: 5px;
 }
 
-/* 2. 검색창 영역 디자인 */
-.search {
-    margin-bottom: 25px;
-    display: flex;
-    justify-content: flex-end; /* 오른쪽 정렬 */
-}
-
-.search form {
-    display: flex;
-    gap: 8px; /* 요소 사이 간격 */
-    align-items: center;
-}
-
-.search select, 
-.search input[type="text"] {
-    height: 40px;
-    border: 1px solid #ddd;
-    padding: 0 12px;
-    font-size: 14px;
-    outline: none;
-    transition: 0.2s;
-}
-
-.search input[type="text"] {
-    width: 250px;
-}
-
-.search select:focus, 
-.search input[type="text"]:focus {
-    border-color: #ff7f50; /* 포커스 시 주황색 */
-}
-
-/* 3. 테이블: 직선 위주 및 연한 선 */
+/* [2] 테이블 공통 디자인 */
 table {
     width: 100%;
     border-collapse: collapse;
     background-color: #fff;
-    border-top: 2px solid #333; /* 상단만 강한 선 */
+    border-top: 2px solid #333;
 }
 
 table th {
-    background-color: #fffaf8; /* 헤더에만 아주 연한 주황빛 */
+    background-color: #fffaf8;
     color: #333;
     padding: 15px;
     font-size: 15px;
@@ -80,42 +57,59 @@ table th {
 
 table td {
     padding: 18px 15px;
-    border-bottom: 1px solid #f2f2f2; /* 세로선 없이 가로선만 연하게 */
+    border-bottom: 1px solid #f2f2f2;
     color: #555;
-    text-align: center;
     font-size: 15px;
+    vertical-align: middle;
 }
 
-/* 테이블 호버 효과 */
 table tbody tr:hover {
     background-color: #fcfcfc;
 }
 
-/* 링크 스타일: 밑줄 제거 */
-table td a {
-    color: #333;
-    text-decoration: none;
-    font-weight: 500;
+/* [3] 입력 요소 (Input, Select, Textarea) 공통 */
+.section_wrap input[type="text"],
+.section_wrap input[type="password"],
+.section_wrap input[type="email"], /* 추가 */
+.section_wrap input[type="tel"],   /* 추가 */
+.section_wrap select,
+.section_wrap textarea {
+    height: 40px;
+    border: 1px solid #ddd;
+    padding: 0 12px;
+    font-size: 14px;
+    outline: none;
+    transition: 0.2s;
+    border-radius: 5px;
+}
+.join_content{
+	width: 100%;
 }
 
-table td a:hover {
-    color: #ff7f50;
+.section_wrap textarea {
+    height: auto;
+    padding: 10px;
 }
 
-/* 버튼 */
+.section_wrap input:focus, 
+.section_wrap select:focus {
+    border-color: #ff7f50;
+}
+
+/* [4] 버튼 공통 디자인 */
 .btn {
-    display: inline-flex;    /* 텍스트 중앙 정렬을 위해 변경 */
+    display: inline-flex;
     align-items: center;
     justify-content: center;
-    padding: 0 30px;         /* 좌우 여백 */
-    height: 45px;            /* 높이 고정 */
+    padding: 0 25px;
+    height: 40px;
     background-color: #ff7f50;
-    color: #fff;  /* 글자색 흰색 강제 */
-    text-decoration: none !important; /* 밑줄 절대 제거 */
+    color: #fff !important;
+    text-decoration: none !important;
     font-weight: 600;
     font-size: 14px;
     border: none;
-    border-radius: 7px;      /* 요청하신 대로 직선 위주지만 살짝만 깎음 */
+    border-radius: 7px;
     cursor: pointer;
     transition: 0.2s;
 }
@@ -124,13 +118,61 @@ table td a:hover {
     background-color: #e66a3e;
 }
 
-/* 전체보기 버튼 (흰색 배경 스타일) */
-input[type="button"].btn {
+/* 흰색 버튼 스타일 (취소, 초기화 등) */
+.btn.white {
     background-color: #fff;
-    color: #ff7f50;
+    color: #ff7f50 !important;
     border: 1px solid #ff7f50;
 }
 
-input[type="button"].btn:hover {
+.btn.white:hover {
     background-color: #fff1ed;
+}
+
+/* [5] 페이지별 특화 스타일 */
+
+/* A. 폼 페이지 (회원가입, 로그인 공통) */
+.join, .login {
+    margin: 0 auto;
+}
+.join { width: 600px; }
+.login { width: 500px; }
+
+/* 폼 레이블 열 */
+.label_cell {
+    width: 150px;
+/*     background-color: #fffaf8; */
+    font-weight: 600;
+    text-align: center;
+/*     padding-left: 30px !important; */
+}
+
+.btn_area {
+    text-align: center !important;
+    padding-top: 30px !important;
+    border: none !important;
+}
+
+/* B. 게시판 목록 페이지 */
+.search_area {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.search_form {
+    display: flex;
+    gap: 5px;
+}
+
+.search_form input[type="text"] { width: 250px; }
+
+.text_left { text-align: left !important; padding-left: 20px !important; }
+
+.ellipsis {
+    max-width: 300px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }

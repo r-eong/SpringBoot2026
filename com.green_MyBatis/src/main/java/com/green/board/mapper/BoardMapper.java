@@ -34,4 +34,10 @@ public interface BoardMapper {
 //	검색 메소드 반드시 searchType, shearchKeyword 매개변수 필요
 	public List<BoardDTO> getShearchBoard(@Param("searchKeyWord") String searchKeyWord, 
 			@Param("searchType") String searchType);
+	
+//	전체 게시글의 개수를 구하는 메소드
+	public int getAllCount();
+	
+//	전체 게시글의 시작 startRow, 몇 개의 행인지 pageSize 만큼 보는/출력하는 메소드
+	public List<BoardDTO> getPageList(@Param("startRow") int startRow, @Param("pageSize") int pageSize);
 }

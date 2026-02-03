@@ -3,6 +3,11 @@
 	<section name="java.lang.Class">
 		<item key="replaceBarOpen" value="false"/>
 		<list key="findhistory">
+			<item value="form_title_exit"/>
+			<item value="form_title_fail"/>
+			<item value="form_title_success"/>
+			<item value="board/boardAll"/>
+			<item value="isTitle"/>
 			<item value="boardList"/>
 			<item value="signup_form"/>
 			<item value="insertMember"/>

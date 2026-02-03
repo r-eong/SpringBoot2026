@@ -40,7 +40,7 @@ public class MemberController {
 		
 //		회원가입이 성공했을 경우 회원목록으로 redirect(새로운 주소로 이동)
 		if(result == memberservice.user_id_success) {
-			return nextPage;
+			return "redirect:/member/list";
 			
 //		회원가입 실패한 경우
 		}else {

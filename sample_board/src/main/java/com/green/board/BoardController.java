@@ -52,9 +52,8 @@ public class BoardController {
 		System.out.println("BoardController - formConfirm 메소드 실행");
 		
 		boardservice.boardAddForm(bdto);
-		return "recirect:/boader/alllist";
+		return "redirect:/board/alllist";
 	}
-	
 ////	게시판 전체출력
 //	@GetMapping("/board/alllist")
 //	public String boardAllList(Model model) {

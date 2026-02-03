@@ -9,7 +9,7 @@
 <Link rel="stylesheet" th:href="@{/css/board.css}" />
 
 <!-- defer 란? - HTML 을 먼저 만들고 JavaScript 실행하라는 의미 -->
-<script th:src="@{/js/member.js}" defer="defer"></script>
+<script th:src="@{/js/member.js}" defer></script>
 </head>
 <body>
 	<header th:replace="~{/include/header_nav_footer.html::header}"></header>
@@ -37,8 +37,12 @@
 							<td width="150" align="center">작성일자</td>
 							<td width="80" align="center">조회수</td>
 						</tr>
-						<tr th:each="list:${list}">
-							<td th:text="${list.num}"></td>
+						<tr th:each="list, stat:${list}">
+							<!-- <td th:text="${list.num}"></td> -->
+							<!-- 전체 게시글의 번호를 최신순으로 계산하는 공식 -->
+							<!-- 전체게시글 개수 - ((현재 페이지 번호 - 1) * 한 화면 게시글 개수) - 현재글 인덱스 번호 -->
+							<!-- totalCnt - ((pageNum - 1) * pageSIze) - index -->
+							<td th:text="${ph.totalCnt - ((ph.pageNum - 1) * ph.pageSize) - stat.index}"></td>
 							<td>
 								<a th:href="@{/board/boardInfo(num=${list.num})}" 
 								th:text="${list.subject}"></a>
@@ -49,7 +53,30 @@
 						</tr>
 					</tbody>
 				</table>
+				<!-- 페이징 화면 시작 -->
+				<div class="paging">
+					<!-- 이전 버튼 -->
+					<a th:if="${ph.prev}" th:href="@{/board/list(page=${ph.startPage - 1})}">◀ </a>
+					
+					<!-- 페이지 번호 -->
+					<!-- 예) ph.startPage = 7, ph.endPage = 9 일때 -->
+					<!-- ┖> [7][8][9] 가 출력됨 -->
+					<!-- ┖> #numbers.sequence(7, 9) -> [7, 8, 9] -->
+					<!-- for(int i = 0; i <= 9; i++) 와 같은 것임 -->
+					<!-- # : for문 처럼 돌아야 할 때 사용 -->
+					<!-- i = ${#numbers.sequence(ph.startPage, ph.endPage) 라는 뜻 -->
+					<span th:each="i : ${#numbers.sequence(ph.startPage, ph.endPage)}">
+						<!-- 해당 페이지로 이동 -->
+						<a th:href="@{/board/list(page=${i})}" th:text="${i}" 
+						th:classappend="${i == ph.pageNum ? 'active' : ''}"></a>
+					</span>
+					
+					<!-- 다음 버튼  -->
+					<a th:if="${ph.next}" th:href="@{/board/list(page=${ph.endPage + 1})}"> ▶</a>
+				</div>
+				<!-- 페이징 화면 종료 -->
 			</div>
+			<!-- 검색 부분 -->
 			<div id="search_wrap">
 				<form th:action="@{/board/list}" method="GET">
 					<select name="searchType" style="padding: 8px;">

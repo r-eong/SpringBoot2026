@@ -9,11 +9,20 @@
 <body>
 	<header th:flagment="header">
 		<div class="header_wrap">
-			<a th:href="@{/}" class="h3">☆BOARD☆</a>
+			<a th:href="@{/}" style="font-size: 25px;">☆BOARD☆</a>
 		</div>
-		<div class="header_wrap">
-			<a th:href="@{/board/form}">글 작성하기</a>
-			<a th:href="@{/board/alllist}">게시판 전체보기</a>
+		<div class="header_wrap" style="margin-top: 20px;">
+<!-- 			비로그인 상태 메뉴 -->
+			<th:block th:if="${session.loginMember == null}">
+				<a th:href="@{/member/signup}">회원가입</a>
+				<a th:href="@{/member/login}">로그인</a>
+			</th:block>
+<!-- 			로그인 상태 메뉴 -->
+			<th:block th:if="${session.loginMember != null}">
+				<a th:href="@{/member/logout}">로그아웃</a>
+				<a th:href="@{/member/memberInfo(id=${session.loginMember.id})}">마이페이지</a>
+			</th:block>
+			<a th:href="@{/board/alllist}">게시판</a>
 		</div>
 	</header>
 	

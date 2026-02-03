@@ -80,4 +80,20 @@ public class BoardService {
 		
 		return boardmapper.getShearchBoard(searchKeyWord, searchType);
 	}
+	
+//	---------------------------------- 2026-02-03 ----------------------------------
+	
+//	전체 게시물 개수 검색하는 메소드
+	public int getAllCount() {
+		System.out.println("3. BoardService - getAllCount 실행");
+		
+		return boardmapper.getAllCount();
+	}
+	
+//	startRow, pageSize 까지의 행 검색
+	public List<BoardDTO> getPageList(int startRow, int pageSize){
+		System.out.println("3. BoardService - getPageList 실행");
+		
+		return boardmapper.getPageList(startRow, pageSize);
+	}
 }

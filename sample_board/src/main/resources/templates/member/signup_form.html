@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" th:href="@{/css/home.css}">
+<link rel="stylesheet" th:href="@{/css/header_nav_footer.css}">
+<link rel="stylesheet" th:href="@{/css/common.css}">
+<script type="@{/js/member.js}" defer></script>
+</head>
+<body>
+	<header th:replace="~{/include/header_nav_footer.html::header}"></header>
+	<nav th:replace="~{/include/header_nav_footer.html::nav}"></nav>
+	
+	<section>
+		<div class="section_wrap">
+		<h3 class="label_cell">회원가입</h3>
+		<!-- 회원가입폼  -->
+			<div class="join">
+				<form th:action="@{/member/signup_confirm}" name="signup_form" method="POST">
+					<table>
+						<tbody>
+							<tr>
+								<td>아이디</td>
+								<td>
+									<input type="text" name="id" class="join_content" 
+									placeholder="아이디를 입력하세요." />
+								</td>
+							</tr>
+							<tr>
+								<td>비밀번호</td>
+								<td>
+									<input type="password" name="pw" class="join_content" 
+									placeholder="비밀번호를 입력하세요." />
+								</td>
+							</tr>
+							<tr>
+								<td>이메일</td>
+								<td>
+									<input type="email" name="mail" class="join_content" 
+									placeholder="메일을 입력하세요. 예) example@mail.com" />
+								</td>
+							</tr>
+							<tr>
+								<td>전화번호</td>
+								<td>
+									<input type="tel" name="phone" class="join_content" 
+									placeholder="전화번호를 입력하세요. 예) 010-000-000" />
+								</td>
+							</tr>
+							<tr>
+								<td colspan="2">
+									<input type="button" value="완료" onclick="signupForm();" class="btn" />
+									<input type="reset" value="초기화" class="btn white" />
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</form>
+			</div>
+		</div>
+	</section>
+
+	<footer th:replace="~{/include/header_nav_footer.html::footer}"></footer>	
+	
+	<script type="text/javascript">
+		function signupForm(){
+			console.log("회원가입 폼");
+			
+			/* DOM 으로 form 연결*/
+			let form = document.signup_form;
+			
+			if(form.id.value === ""){
+				alert("아이디를 입력하세요");
+				form.id.focus();
+			}else if(form.pw.value === ""){
+				alert("비밀번호를 입력하세요")
+				form.pw.focus();
+			}else if(form.mail.value === ""){
+				alert("비밀번호를 입력하세요")
+				form.mail.focus();
+			}else if(form.phone.value === ""){
+				alert("비밀번호를 입력하세요")
+				form.phone.focus();
+			}else {
+				form.submit();
+			}
+		}
+	</script>
+</body>
+</html>
