@@ -96,7 +96,50 @@ public class BoardController {
 //		String nextPage = "board/boardList";
 //		return nextPage;
 //	}
-	@GetMapping("/board/list")  // 검색기능 추가 + 페이지 번호 추가 코드 --- 2026-02-03 추가 ---
+//	@GetMapping("/board/list")  // 검색기능 추가 --- 2026-02-03 페이지 번호 코드 추가 ---
+//	public String boardList(Model model,
+//			@RequestParam(required = false, value="searchKeyWord") String searchKeyWord, 
+//			@RequestParam(required = false, value="searchType") String searchType,
+////			1. 페이지 번호 - 1부터 시작이므로 초기값 1로 정의
+//			@RequestParam(value="page", defaultValue = "1") int page,
+////			2. 페이지 사이즈 - 한 화면에 보여지는 게시글 개수를 5로 초기화
+//			@RequestParam(value = "pageSize", defaultValue = "5") int pageSize
+//			) {
+//		System.out.println("1. BoardController - boardList 메소드 실행");
+//		
+////		3. totalCnt 메소드 호출
+//		int totalCnt = boardservice.getAllCount();
+//		
+////		4. PageHandler 클래스 접근하기 위해 인스턴스화
+//		PageHandler ph = new PageHandler(totalCnt, page, pageSize);
+//		
+//		List<BoardDTO> boardList;
+//		
+////		검색 - 검색내용 list에 출력
+////		JAVA는 널포인트인셉션? 이라는걸 갖고있어서 null 처리를 꼭 해줘야함
+//		if(searchType != null && !searchType.trim().isEmpty()) {
+////								  ┖isEmpty() = 공백이냐?
+////			boardservice에서 shearchBoard 호출
+//			boardList = boardservice.shearchBoard(searchKeyWord, searchType);
+//			
+////		검색 초기화 - list 전체출력
+//		}else {
+////			boardList = boardservice.allBoard();
+////			┖> 을 사용하지 못 하는 이유 : 페이징이 안 된 전체 페이지 출력 메소드라서
+////			public List<BoardDTO> getPageList(int startRow, int pageSize)
+//			boardList = boardservice.getPageList(ph.getStartRow(), pageSize);
+//		}
+//		
+////		검색 초기화 - list 전체출력
+//		model.addAttribute("list", boardList);
+//		
+////		pageHandler 클래스 전체 model 객체에 담아서 html 로 보내야 UI 화면에 그릴 수 있다.
+//		model.addAttribute("ph", ph);
+//		
+//		String nextPage = "board/boardList";
+//		return nextPage;
+//	}
+	@GetMapping("/board/list")  // 검색기능 추가 페이지 번호 코드 추가  --- 2026-02-04 검색 페이지 번호 코드 추가 ---
 	public String boardList(Model model,
 			@RequestParam(required = false, value="searchKeyWord") String searchKeyWord, 
 			@RequestParam(required = false, value="searchType") String searchType,
@@ -108,9 +151,20 @@ public class BoardController {
 		System.out.println("1. BoardController - boardList 메소드 실행");
 		
 //		3. totalCnt 메소드 호출
-		int totalCnt = boardservice.getAllCount();
+		int totalCnt;
+		
+//		totalCnt 를 조건에 만족하는 값으로 저장되도록 지정하는 부분
+		if(searchType != null && !searchType.trim().isEmpty()) {
+//			검색 성공 - 검색한 결과에 해당하는 개수 반환
+			totalCnt = boardservice.getSearchCount(searchKeyWord, searchType);
+		}else {
+//			검색 안함 - 전체 게시글의 개수 반환
+			totalCnt = boardservice.getAllCount();
+		}
 		
 //		4. PageHandler 클래스 접근하기 위해 인스턴스화
+//		예) 검색한 결과 totalCnt = 1 일 때
+//											1		1		5
 		PageHandler ph = new PageHandler(totalCnt, page, pageSize);
 		
 		List<BoardDTO> boardList;
@@ -120,7 +174,8 @@ public class BoardController {
 		if(searchType != null && !searchType.trim().isEmpty()) {
 //								  ┖isEmpty() = 공백이냐?
 //			boardservice에서 shearchBoard 호출
-			boardList = boardservice.shearchBoard(searchKeyWord, searchType);
+//			검색된 리스트를 반환하는 메소드
+			boardList = boardservice.getSearchPageList(searchKeyWord, searchType, ph.getStartRow(), pageSize);
 			
 //		검색 초기화 - list 전체출력
 		}else {
@@ -135,6 +190,14 @@ public class BoardController {
 		
 //		pageHandler 클래스 전체 model 객체에 담아서 html 로 보내야 UI 화면에 그릴 수 있다.
 		model.addAttribute("ph", ph);
+		
+//		searchType, searchKeyWord 를 계속 들고다녀야함!
+//		검색하는 타입과 항목을 UI에 넘겨주지 않으면 오류발생. 
+//		반드시 searchType, searchKeyWord 를 model 에 담아서 html 에 넘겨준다.
+//		┖> public List<BoardDTO> getSearchPageList(String searchKeyWord, 
+//		String searchType, int startRow, int pageSize) 에서 4개를 모두 받아야 하기 때문!
+		model.addAttribute("searchType", searchType);
+		model.addAttribute("searchKeyWord", searchKeyWord);
 		
 		String nextPage = "board/boardList";
 		return nextPage;
@@ -203,5 +266,44 @@ public class BoardController {
 		}else {  // 실패 - 화면이동없음
 			return "redirect:/board/boardInfo?num=" + num;
 		}
+	}
+	
+//	---------------------------------- 2026-02-04 ----------------------------------
+	
+//	로그인된 나의 게시글 목록을 검색/출력 하는 핸들러
+	@GetMapping("/board/myPage")
+	public String myBoardList(Model model, HttpSession session, 
+			@RequestParam(value="page", defaultValue = "1") int page) {
+		System.out.println("1. BoardController - myBoardList 메소드 실행");
+		
+//		세션을 이용해서 loginMember 로 가져오기 (MemberController.java / loginPro() 에 있음!)
+//		세션 키 값 가져오는 메소드 : getAttribute("loginMember")
+//		예) id = "auser01" 해당하는 행 전체
+//		session.getAttribute("loginMember") 을 MemberDTO로 다운 캐스팅
+//		logId 에 MemberDTO의 멤버변수 모두 저장됨.
+		MemberDTO logId = (MemberDTO)session.getAttribute("loginMember");
+		
+//		로그인 실패/안함 상태 - member/login 으로 이동
+		if(logId == null) {
+			System.out.println("로그인 정보없음 - 로그인 페이지로 이동");
+			return "redirect:/member/login";
+		}
+		
+		int pageSize = 5;
+		
+//		로그인된 유저의 게시글 개수 조회
+		int totalCnt = boardservice.getMyBoardCount(logId.getId());
+		
+//		인스턴스화
+		PageHandler ph = new PageHandler(totalCnt, page, pageSize);
+		
+//		로그인된 유저의 게시글 목록 가져오기
+		List<BoardDTO> myList = boardservice.getMyBoardList(logId.getId(), ph.getStartRow(), pageSize);
+		
+		model.addAttribute("list", myList);
+		model.addAttribute("ph", ph);
+		
+		String nextPage = "board/myPage";
+		return nextPage;
 	}
 }

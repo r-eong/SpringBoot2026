@@ -96,4 +96,33 @@ public class BoardService {
 		
 		return boardmapper.getPageList(startRow, pageSize);
 	}
+	
+//	---------------------------------- 2026-02-04 ----------------------------------
+	
+	public int getSearchCount(String searchKeyWord, String searchType) {
+		System.out.println("3. BoardService - setSearchCount 실행");
+		
+		return boardmapper.getSearchCount(searchType, searchKeyWord);
+	}
+	
+	public List<BoardDTO> getSearchPageList(String searchKeyWord, 
+			String searchType, int startRow, int pageSize){
+		System.out.println("3. BoardService - getSearchPageList 실행");
+		
+		return boardmapper.getSearchPageList(searchType, searchKeyWord, startRow, pageSize);
+	}
+	
+//	---------------------------------- 2026-02-04 ----------------------------------
+	
+	public List<BoardDTO> getMyBoardList(String loginId, int startRow, int pageSize){
+		System.out.println("3. BoardService - getMyBoardList 실행");
+		
+		return boardmapper.getMyBoardList(loginId, startRow, pageSize);
+	}
+	
+	public int getMyBoardCount(String loginId) {
+		System.out.println("3. BoardService - getMyBoardCount 실행");
+		
+		return boardmapper.getMyBoardCount(loginId);
+	}
 }

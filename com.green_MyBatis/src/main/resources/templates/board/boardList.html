@@ -56,7 +56,8 @@
 				<!-- 페이징 화면 시작 -->
 				<div class="paging">
 					<!-- 이전 버튼 -->
-					<a th:if="${ph.prev}" th:href="@{/board/list(page=${ph.startPage - 1})}">◀ </a>
+					<a th:if="${ph.prev}" th:href="@{/board/list(page=${ph.startPage - 1}, 
+					searchType=${searchType}, searchKeyWord=${searchKeyWord})}">◀ </a>
 					
 					<!-- 페이지 번호 -->
 					<!-- 예) ph.startPage = 7, ph.endPage = 9 일때 -->
@@ -67,12 +68,14 @@
 					<!-- i = ${#numbers.sequence(ph.startPage, ph.endPage) 라는 뜻 -->
 					<span th:each="i : ${#numbers.sequence(ph.startPage, ph.endPage)}">
 						<!-- 해당 페이지로 이동 -->
-						<a th:href="@{/board/list(page=${i})}" th:text="${i}" 
+						<a th:href="@{/board/list(page=${i}, 
+						searchType=${searchType}, searchKeyWord=${searchKeyWord})}" th:text="${i}" 
 						th:classappend="${i == ph.pageNum ? 'active' : ''}"></a>
 					</span>
 					
 					<!-- 다음 버튼  -->
-					<a th:if="${ph.next}" th:href="@{/board/list(page=${ph.endPage + 1})}"> ▶</a>
+					<a th:if="${ph.next}" th:href="@{/board/list(page=${ph.endPage + 1}, 
+					searchType=${searchType}, searchKeyWord=${searchKeyWord})}"> ▶</a>
 				</div>
 				<!-- 페이징 화면 종료 -->
 			</div>

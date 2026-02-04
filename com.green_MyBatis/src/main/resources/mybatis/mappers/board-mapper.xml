@@ -56,7 +56,7 @@
 		ORDER BY num DESC
 	</select>
 	
-	<!-- 2026-02-03 -->
+	<!-- ================= 2026-02-03 ================= -->
 	
 	<!-- public int getAllCount(); -->
 	<select id="getAllCount" resultType="int">
@@ -66,5 +66,59 @@
 	<!-- public List<BoardDTO> getPageList(@Param("startRow") int startRow, @Param("pageSize") int pageSize); -->
 	<select id="getPageList" resultType="BoardDTO">
 		SELECT * FROM board ORDER BY num DESC LIMIT #{startRow}, #{pageSize}
+	</select>
+	
+	<!-- ================= 2026-02-04 ================= -->
+	
+	<!-- 검색 페이징 -->
+	
+	<!-- public int setSearchCount(@Param("searchType") String searchType, 
+			@Param("searchKeyWord") String searchKeyWord); -->
+	<select id="getSearchCount" resultType="int">
+	   SELECT COUNT(*) FROM board
+		<where>
+			<choose>
+				<when test="searchType == 'subject'">
+					subject LIKE CONCAT('%', #{searchKeyWord}, '%')
+				</when>
+				<otherwise>
+					content LIKE CONCAT('%', #{searchKeyWord}, '%') 
+				</otherwise>
+			</choose>
+		</where>
+	</select>
+	
+	<!-- public List<BoardDTO> getSearchPageList(@Param("searchType") String searchType, 
+			@Param("searchKeyWord") String searchKeyWord, 
+			@Param("startRow") int startRow, @Param("pageSize") int pageSize); -->
+	<select id="getSearchPageList" resultType="BoardDTO">
+		SELECT * FROM board
+		<where>
+			<choose>
+				<when test="searchType == 'subject'">
+					subject LIKE CONCAT('%', #{searchKeyWord}, '%')
+				</when>
+				<otherwise>
+					content LIKE CONCAT('%', #{searchKeyWord}, '%') 
+				</otherwise>
+			</choose>
+		</where>
+		ORDER BY num DESC LIMIT #{startRow}, #{pageSize}
+	</select>
+	
+	<!-- public List<BoardDTO> getMyBoardList(@Param("loginId") String loginId, 
+			@Param("startRow") int startRow, @Param("pageSize") int pageSize); -->
+	<!-- user_member 의 id 와 board 의 id 가 같은 게시글 목록
+		 테이블 두개 JOIN 필요 -->
+	<!-- select 필드명 from 테이블명 별칭 inner join 테이블 이름 별칭 on 별칭.pk = 별칭.fk -->
+	<select id="getMyBoardList" resultType="BoardDTO">
+		SELECT b.num, b.subject, b.reg_date, b.readCount, m.id as writer FROM board 
+		b INNER JOIN user_mamber m ON b.id = m.id 
+		WHERE b.id=#{loginId} ORDER BY b.num DESC LIMIT #{startRow}, #{pageSize}
+	</select>
+	
+	<!-- public int getMyBoardCount(String loginId); -->
+	<select id="getMyBoardCount" resultType="int" parameterType="String">
+		SELECT COUNT(*) FROM board WHERE id=#{loginId}
 	</select>
 </mapper>
