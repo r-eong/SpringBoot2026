@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.com">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<div class="container">
+		<h3>문의하기</h3>
+		<table>
+			<tbody>
+				<tr>
+					<td>
+						<button type="button" th:onclick="|location.href='@{/quest/writer}'|">문의하기</button>
+					</td>
+				</tr>
+				<tr>
+					<td>번호</td>
+					<td>제목</td>
+					<td>작성자</td>
+					<td>작성일자</td>
+					<td>조회수</td>
+				</tr>
+				<tr th:each="queList, stat:${queList}">
+					<td>
+						<!-- 답글일때	↳ -->
+						<span th:if="${queList.upload1 != null}" th:style="'padding-left: 20px')">↳ </span>
+						<a th:href="@{/quest/detail(num=${queList.num})}" th:text="${queList.subject}"></a>
+					</td>
+					<td th:text="${queList.writer}"></td>
+					<td th:text="${#dates.format(queList.reg_date, 'yyyy-MM--dd HH:mm')}"></td>
+					<td th:text="${queList.readcount}"></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</body>
+</html>

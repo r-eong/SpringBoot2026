@@ -3,6 +3,10 @@
 	<section name="java.lang.Class">
 		<item key="replaceBarOpen" value="false"/>
 		<list key="findhistory">
+			<item value="reg_date"/>
+			<item value="rList"/>
+			<item value="ref_date"/>
+			<item value="reg"/>
 			<item value="label_cell"/>
 			<item value="join_content"/>
 			<item value="a"/>
@@ -14,12 +18,10 @@
 			<item value="form_title_exit"/>
 			<item value="form_title_fail"/>
 			<item value="form_title_success"/>
-			<item value="board/boardAll"/>
-			<item value="isTitle"/>
-			<item value="boardList"/>
-			<item value="signup_form"/>
 		</list>
 		<list key="replacehistory">
+			<item value="reg_date"/>
+			<item value="ref"/>
 		</list>
 	</section>
 </section>

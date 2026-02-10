@@ -8,6 +8,7 @@
 	<typeAliases>
 		<typeAlias alias="MemberDTO" type="com.green.member.MemberDTO" />
 		<typeAlias alias="BoardDTO" type="com.green.board.BoardDTO" />
+		<typeAlias alias="CarDTO" type="com.green.carproduct.CarProductDTO" />
 		<!-- alias="MemberDTO" <- 이게 별칭 -->
 	</typeAliases>
 	
