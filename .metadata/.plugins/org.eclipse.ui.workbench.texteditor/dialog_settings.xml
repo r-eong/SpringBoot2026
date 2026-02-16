@@ -3,23 +3,25 @@
 	<section name="java.lang.Class">
 		<item key="replaceBarOpen" value="false"/>
 		<list key="findhistory">
+			<item value="form"/>
+			<item value="method"/>
+			<item value="nput-pw"/>
+			<item value="rep"/>
+			<item value="reply"/>
+			<item value="reWriteInsert"/>
+			<item value="board"/>
+			<item value="getAllReplyBoard"/>
+			<item value="Reply"/>
+			<item value="Quest"/>
 			<item value="reg_date"/>
 			<item value="rList"/>
 			<item value="ref_date"/>
 			<item value="reg"/>
 			<item value="label_cell"/>
-			<item value="join_content"/>
-			<item value="a"/>
-			<item value="td"/>
-			<item value="recirect"/>
-			<item value="boader"/>
-			<item value="alllist"/>
-			<item value="redirect"/>
-			<item value="form_title_exit"/>
-			<item value="form_title_fail"/>
-			<item value="form_title_success"/>
 		</list>
 		<list key="replacehistory">
+			<item value="review"/>
+			<item value="Review"/>
 			<item value="reg_date"/>
 			<item value="ref"/>
 		</list>

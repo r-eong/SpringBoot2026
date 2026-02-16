@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.com">
+<head>
+<meta charset="UTF-8">
+<title>리뷰 수정 폼</title>
+<style type="text/css">
+	body {
+		background-color: #f4f7f6;
+		font-family: 'Pretendard', -apple-system, sans-serif;
+		margin: 0;
+		padding: 50px 0;
+		display: flex;
+		justify-content: center;
+	}
+	
+	.container {
+		background: #fff;
+		width: 90%;
+		max-width: 700px;
+		padding: 40px;
+		border-radius: 15px;
+		box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+	}
+	
+	h2 {
+		text-align: center;
+		color: #2c3e50;
+		margin-bottom: 30px;
+		font-size: 26px;
+	}
+	
+	table {
+		width: 100%;
+		border-collapse: collapse;
+	}
+	
+	td {
+		padding: 12px 15px;
+		border-bottom: 1px solid #f1f2f6;
+	}
+	
+	/* 왼쪽 라벨 칸 */
+	td:first-child {
+		width: 120px;
+		background-color: #f8f9fa;
+		color: #7f8c8d;
+		font-weight: 600;
+		text-align: center;
+		border-radius: 8px 0 0 8px;
+	}
+	
+	/* 입력창 공통 스타일 */
+	input[type="text"],
+	input[type="email"],
+	input[type="password"],
+	textarea {
+		width: 100%;
+		padding: 10px;
+		border: 1px solid #ddd;
+		border-radius: 6px;
+		box-sizing: border-box; /* 패딩 포함 너비 계산 */
+		font-family: inherit;
+		font-size: 14px;
+		outline: none;
+		transition: border-color 0.2s;
+	}
+	
+	input:focus, textarea:focus {
+		border-color: #2c3e50;
+	}
+	
+	/* 특정 클래스 활용 */
+	.b_subject {
+		font-weight: 600;
+	}
+	
+	.b_contents {
+		resize: vertical; /* 세로로만 조절 가능 */
+		min-height: 200px;
+	}
+	
+	/* 하단 버튼 영역 */
+	tr:last-child td {
+		background-color: transparent;
+		text-align: center;
+		padding-top: 30px;
+		border-bottom: none;
+	}
+	
+	input[type="button"],
+	input[type="submit"],
+	input[type="reset"] {
+		all: unset;
+		padding: 12px 25px;
+		margin: 0 5px;
+		border-radius: 8px;
+		font-weight: 600;
+		font-size: 14px;
+		cursor: pointer;
+		transition: all 0.2s ease;
+		display: inline-block;
+	}
+	
+	/* 답글쓰기완료 버튼 */
+	input[value="답글쓰기완료"] {
+		background-color: #2c3e50;
+		color: #fff;
+	}
+	
+	/* 다시작성 버튼 */
+	input[type="reset"] {
+		background-color: #95a5a6;
+		color: #fff;
+	}
+	
+	/* 목록보기 버튼 */
+	input[value="목록보기"] {
+		background-color: #ecf0f1;
+		color: #7f8c8d;
+	}
+	
+	input:hover {
+		transform: translateY(-2px);
+		filter: brightness(90%);
+		box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+	}
+</style>
+</head>
+<body>
+	<div class="container">
+		<h2>답변글 작성하기</h2>
+		<form th:action="@{/review/reWritePro}" method="POST" name="formname">
+			<table>
+				<tr>
+					<td>작성자</td>
+					<td><input type="text" name="writer"></td>
+				</tr>
+				<tr>
+					<td>제목</td>
+					<td><input type="text" name="subject" class="b_subject"></td>
+				</tr>
+				<tr>
+					<td>이메일</td>
+					<td><input type="email" name="email"></td>
+				</tr>
+				<tr>
+					<td>비밀번호</td>
+					<td><input type="password" name="password"></td>
+				</tr>
+				<tr>
+					<td>글내용</td>
+					<td><textarea rows="10" cols="55" name="content" class="b_contents"></textarea>
+				</tr>
+				<tr>
+					<td colspan="2">
+						<input type="hidden" name="ref" th:value="${ref}">
+						<input type="hidden" name="re_step" th:value="${re_step}">
+						<input type="hidden" name="re_level" th:value="${re_level}">
+						<input type="button" th:onclick="|BoardWriteException();|" value="답글쓰기완료">
+						<input type="reset" value="다시작성">
+						<input type="button" th:onclick="|location.href='@{/review/list}'|" value="목록보기">
+					</td>
+				</tr>
+			</table>
+		</form>
+	</div>
+
+	<script>
+		function BoardWriteException() {
+			let formname = document.formname
+
+			if (formname.subject.value == "") {
+				alert("제목을 입력하세요");
+				sub.focus();
+				return;
+			}
+			if (formname.content.value === "") {
+				alert("내용을입력하세요");
+				cont.focus();
+				return;
+			}
+			formname.submit();
+		}
+	</script>
+</body>
+</html>

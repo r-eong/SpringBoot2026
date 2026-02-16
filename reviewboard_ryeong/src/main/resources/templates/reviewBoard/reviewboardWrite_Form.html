@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.com">
+<head>
+<meta charset="UTF-8">
+<title>리뷰 작성 폼</title>
+<style type="text/css">
+	body {
+        background-color: #f4f7f6;
+        font-family: 'Pretendard', -apple-system, sans-serif;
+        margin: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+    }
+    .container {
+        background: #fff;
+        width: 100%;
+        max-width: 550px;
+        padding: 40px;
+        border-radius: 15px;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+    }
+    h2 {
+        text-align: center;
+        color: #2c3e50;
+        margin-bottom: 30px;
+        font-size: 24px;
+    }
+    table {
+        width: 100%;
+        border-spacing: 0 15px;
+    }
+    td:first-child {
+        width: 80px;
+        color: #7f8c8d;
+        font-weight: 600;
+        font-size: 14px;
+    }
+    input[type="text"],
+    input[type="email"],
+    input[type="password"],
+    input[type="number"],
+    textarea {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #e0e0e0;
+        border-radius: 8px;
+        box-sizing: border-box;
+        font-size: 14px;
+        transition: all 0.3s;
+    }
+    input:focus, textarea:focus {
+        border-color: #3498db;
+        outline: none;
+        box-shadow: 0 0 5px rgba(52,152,219,0.2);
+    }
+    /* 별점 입력창 특화 */
+    input[name="stars"] {
+        width: 80px;
+        display: inline-block;
+    }
+    span.unit {
+        margin-left: 8px;
+        color: #95a5a6;
+        font-size: 14px;
+    }
+    .btn-area {
+        text-align: center;
+        padding-top: 20px !important;
+    }
+    input[type="button"],
+    input[type="reset"] {
+        padding: 12px 25px;
+        border-radius: 8px;
+        border: none;
+        cursor: pointer;
+        font-weight: 600;
+        margin: 0 5px;
+        transition: opacity 0.2s;
+    }
+    .btn-submit { background: #2c3e50; color: #fff; }
+    .btn-reset { background: #ecf0f1; color: #7f8c8d; }
+    .btn-list { background: #fff; border: 1px solid #dcdde1 !important; color: #2f3640; }
+    
+    input[type="button"]:hover { opacity: 0.9; }
+</style>
+</head>
+<body>
+	<div class="container">
+	    <h2>리뷰 작성하기</h2>
+	    <form th:action="@{/review/writerPro}" method="POST" name="formname" enctype="multipart/form-data">
+	       <table>
+				<tr>
+					<td>작성자</td>
+					<td>
+						<input type="text" name="writer">
+					</td>
+				</tr>
+				<tr>
+					<td>제목</td>
+					<td>
+						<input type="text" name="subject" class="b_subject">
+					</td>
+				</tr>
+				<tr>
+					<td>이메일</td>
+					<td>
+						<input type="email" name="email">
+					</td>
+				</tr>
+				<tr>
+					<td>비밀번호</td>
+					<td>
+						<input type="password" name="password">
+					</td>
+				</tr>
+				<tr>
+					<td>별점</td>
+					<td>
+						<input type="number" name="stars"><span> 점</span>
+					</td>
+				</tr>
+				<tr>
+					<td>글내용</td>
+					<td>
+						<textarea rows="10" cols="55" name="content" class="b_contents"></textarea>
+					</td>
+					
+				</tr>
+	          
+				<!-- 이미지 업로드 -->
+				<tr>
+				   <td>이미지1</td>
+				   <td>
+				      <input type="file" name="file1">
+				   </td>
+				</tr>
+				<tr>
+				   <td>이미지2</td>
+				   <td>
+				      <input type="file" name="file2">
+				   </td>
+				</tr>
+				
+				<!-- 버튼 -->
+				<tr>
+					<td colspan="2">
+						<input type="button" th:onclick="|BoardWriteException();|" value="글쓰기" >
+		                <input type="reset"  value="다시작성">
+		                <input type="button" th:onclick="|location.href='@{/review/list}'|" value="목록보기">
+		            </td>
+				</tr>
+	    	</table>
+		</form>
+	</div>
+  
+	<script>
+		function BoardWriteException(){
+			let formname = document.formname
+			
+			if(formname.subject.value==""){ 
+				alert("제목을 입력하세요");
+				sub.focus();
+				return;
+			}
+			if(formname.content.value === ""){
+				alert("내용을입력하세요");
+				cont.focus();
+				return;
+			}
+			formname.submit();
+		}
+	</script>
+</body>
+</html>

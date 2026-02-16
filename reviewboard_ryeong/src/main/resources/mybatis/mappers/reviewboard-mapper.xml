@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="reviewboard.mapper.ReviewBoardMapper">
+	<!-- public void insertReviewBoard(ReviewBoardDTO rdto); -->
+	<insert id="insertReviewBoard" parameterType="rDTO">
+		INSERT INTO reviewBoard(writer, email, subject, password, stars, content, upload1, upload2) 
+		VALUES (#{writer}, #{email}, #{subject}, #{password}, #{stars}, #{content}, #{upload1}, #{upload2})
+	</insert>
+	
+	<!-- public List<ReviewBoardDTO> getAllReviewBoard(); -->
+	<select id="getAllReviewBoard" resultType="rDTO">
+		SELECT * FROM reviewBoard ORDER BY num DESC
+	</select>
+	
+	<!-- public ReviewBoardDTO getOneBoard(int num); -->
+	<select id="getOneBoard" resultType="rDTO" parameterType="int">
+		SELECT * FROM reviewBoard WHERE num=#{num}
+	</select>
+	
+	<!-- public int getAverageStars(); -->
+	<select id="getAverageStars" resultType="int">
+	    SELECT IFNULL(ROUND(AVG(stars)), 0) FROM reviewBoard
+	</select>
+	
+	<!-- public int updateReviewBoardCount(int num); -->
+	<update id="updateReviewBoardCount" parameterType="int">
+		UPDATE reviewBoard SET readcount = readcount + 1 WHERE num=#{num}
+	</update>
+	
+	<!-- public int updateReviewBoard(ReviewBoardDTO rdto); -->
+	<update id="updateReviewBoard" parameterType="rDTO">
+		UPDATE reviewBoard SET subject=#{subject}, content=#{content} WHERE num=#{num} AND password=#{password}
+	</update>
+	
+	<!-- public int deleteReviewBoard(@Param("num") int num, @Param("password") String password); -->
+	<delete id="deleteReviewBoard">
+		DELETE FROM reviewBoard WHERE num=#{num} AND password=#{password}
+	</delete>
+</mapper>
